@@ -1,0 +1,40 @@
+spring security
+
+Initial setup : Added dependency to spring-boot-starter-security to the pom.xml 
+Default behaviour for spring security : added multiple filters as layer to api . one of the filter was spring security filter.
+
+    by default spring staters handle      below points
+   -add mandatory authentication for URL's 
+   -Add login from / logout  jsp
+   -handles login error's
+   -creates a user and sets a default password /we can define one in applicaiton.properties
+   
+   Here it reads userName and password from applicaiton.properties
+     spring.security.user.name = user
+     spring.security.user.password = password
+
+   
+   Configuring spring security in spring boot 
+   
+    Inmemory authenticaiton :  Add spring-boot-starter-security starter 
+	             -> Authenticaiton manager whcih has Authenticate() returns success or throws exception, we cant directly work with authenticaiton manager
+				    we need to configure authentication manager using configure() sending AuthenticationManagerBuilder as paramerter and set configuration...here we use inMemory authenticaiton.
+					
+					we will create srpring class which extends WebSecurityConfigurerAdapter overridr configure() uses AuthenticationManagerBuilder as arguments.
+					
+					
+					We use below Bean to fetch password encoder as it will use by spring security for password encryption
+					@SuppressWarnings("deprecation")
+	                @Bean
+	                public PasswordEncoder getPasswordEncoder() {
+		             return NoOpPasswordEncoder.getInstance();
+                 	}
+					
+					
+Spring Authorisation : It requires couple of users .. it doesn't matter which type of authentication it has for now we used inMemory authenticaiton.
+                       Authorisation based on user role
+					   
+					   we use configure() and pass HttpSecurity as an argument. this arguments consist of antMatchers() and hasRole() , permitAll()
+                     
+				 
+				 
